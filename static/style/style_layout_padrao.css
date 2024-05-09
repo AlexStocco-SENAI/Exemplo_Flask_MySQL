@@ -90,11 +90,11 @@ footer{
     font-size: 14px;
     outline: none;
     border: 1px solid white;
-    color: white;
+    color: black;
     background-color: #ffffff;
 }
 .footer-col .form-sub input::placeholder{
-    color: white;
+    color: rgb(0, 0, 0);
 }
 .footer-col .form-sub button{
     width: 100%;
