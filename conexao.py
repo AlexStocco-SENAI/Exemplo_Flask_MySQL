@@ -8,6 +8,6 @@ class Conexao:
             host="127.0.0.1",
             user="usuario_exemplo",
             password="senha_exemplo",
-            database="crabiz"
+            database="bd_exemplo"
             )
         return mydb
