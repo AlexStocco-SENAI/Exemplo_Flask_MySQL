@@ -1,0 +1,16 @@
+/* style_index.css */
+/* Estilo para centralizar os botões */
+.text-center {
+    text-align: center;
+}
+
+/* Estilo para adicionar margem ao topo dos botões */
+.mt-5 {
+    margin-top: 5rem;
+}
+
+/* Estilo para aumentar a altura dos botões */
+.btn-lg {
+    height: 120px; 
+    align-content: center;
+}
