@@ -1,16 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo</title>
-</head>
-<body>
-    <header>
-        
-    </header>
-    <body>
+{% extends 'layout_padrao.html' %}
 
-    </body>
-</body>
-</html>
+{% block estilo_css %}
+<link rel="stylesheet" href="static/style/style_produtos.css">
+{% endblock %}
+
+{% block conteudo %}
+<main>
+    <div class="produtos">
+        <div class="card">
+            <div class="imgBox">
+            <img src="static/imgs/capivara.png" alt="mouse corsair" class="mouse">
+            </div>
+            <div class="contentBox">
+            <h3>Capivara </h3>
+            <h2 class="price">R$ 61,89</h2>
+            <a href="#" class="buy">COMPRAR</a>
+            </div>
+        </div>
+    </div>
+</main>
+  {% endblock %}

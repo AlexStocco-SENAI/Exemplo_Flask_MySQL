@@ -1,5 +1,11 @@
 /* style_index.css */
 /* Estilo para centralizar os botões */
+main{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
 .text-center {
     text-align: center;
 }
