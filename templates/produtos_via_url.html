@@ -6,17 +6,20 @@
 
 {% block conteudo %}
 <main>
-    <div class="produtos">
-        <div class="card">
-            <div class="imgBox">
-            <img src="static/imgs/capivara.png" alt="mouse corsair" class="mouse">
+    <div class="produtos" >  
+        {% for produto in lista_produtos%}
+            <div class="card" style="background-color: {{produto['cor_categoria']}};">
+                ::before:
+                <div class="imgBox">
+                <img src="{{produto['foto']}}"  class="mouse">
+                </div>
+                <div class="contentBox">
+                <h3>{{produto['nome']}}</h3>
+                <h2 class="price">R$ {{produto['preco']}}</h2>
+                <a href="#" class="buy">COMPRAR</a>
+                </div>
             </div>
-            <div class="contentBox">
-            <h3>Capivara </h3>
-            <h2 class="price">R$ 61,89</h2>
-            <a href="#" class="buy">COMPRAR</a>
-            </div>
-        </div>
+        {%endfor%}
     </div>
 </main>
   {% endblock %}
