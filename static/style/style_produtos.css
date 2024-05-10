@@ -14,8 +14,6 @@ main{
 .produtos {
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -123,4 +121,44 @@ main{
 .mouse {
   height: 300px;
   width: auto;
+}
+
+.categorias{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  margin:1em;
+}
+
+/* BOTÃO CATEGORIA */
+
+/* CSS */
+.itemCategoria {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  margin: 0.2em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.itemCategoria:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+.itemCategoria:active {
+  box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }

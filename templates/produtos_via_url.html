@@ -6,6 +6,22 @@
 
 {% block conteudo %}
 <main>
+
+    <div class="categorias">
+        {% for categoria in lista_categorias%}
+        <form>
+            <button type="submit" 
+                class="itemCategoria" 
+                name="filtro" 
+                value = {{categoria['id_categoria']}}
+                style = 
+            >
+                {{categoria['nome']}}
+            </button>
+        </form>
+        {%endfor%}
+    </div>
+
     <div class="produtos" >  
         {% for produto in lista_produtos%}
             <div class="card" style="background-color: {{produto['cor_categoria']}};">

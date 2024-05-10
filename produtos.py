@@ -27,6 +27,8 @@ def retorna_produto(id_produto: int) -> dict:
     
     resultado = cursor.fetchone()
     
+    mydb.close()
+    
     dicionario_produto ={
         "id_produto":resultado[0],
         "nome":resultado[1],
@@ -67,6 +69,8 @@ def retorna_produtos(filtro:str="") -> list:
     
     resultado = cursor.fetchall()
     
+    mydb.close()
+    
     lista_produtos = []
     
     for produto in resultado:
@@ -82,5 +86,34 @@ def retorna_produtos(filtro:str="") -> list:
     
     return (lista_produtos)
 
-        
+#--------------------------------------------------------------------
+
+def retorna_categorias() -> list:
+    mydb = Conexao.conectar()
+    cursor = mydb.cursor()
+    
+    sql = """
+        SELECT
+            id_categoria,
+            nome,
+            imagem,
+            cor
+            FROM tb_categoria
+            ORDER BY nome
+        """
+    cursor.execute(sql)
+    
+    resultado = cursor.fetchall()
+    
+    lista_categorias = []
+    
+    for categoria in resultado:
+        lista_categorias.append({
+            "id_categoria":categoria[0],
+            "nome":categoria[1],
+            "imagem":categoria[2],
+            "cor":categoria[3]
+        })
+    
+    return (lista_categorias)
     

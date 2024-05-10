@@ -11,7 +11,10 @@ def pag_inicial():
 @app.route("/produtos_via_url", methods=["GET"])
 def pag_produtos_via_url():
     lista_produtos = retorna_produtos()
-    return render_template("produtos_via_url.html", lista_produtos = lista_produtos)
+    lista_categorias = retorna_categorias()
+    return render_template("produtos_via_url.html", 
+                           lista_produtos = lista_produtos,
+                           lista_categorias = lista_categorias)
 
 @app.route("/produtos_via_ajax", methods=["GET"])
 def pag_produtos_via_ajax():
