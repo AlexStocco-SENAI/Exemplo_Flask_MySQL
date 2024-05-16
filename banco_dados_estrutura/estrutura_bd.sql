@@ -3,7 +3,7 @@ CREATE DATABASE bd_exemplo;
 USE bd_exemplo;
 
 CREATE TABLE tb_categoria (
-	id_categoria INT PRIMARY KEY AUTO_INCREMENT,
+	id_categoria INT PRIMARY KEY,
     nome VARCHAR(60),
     cor VARCHAR(10),
     imagem VARCHAR(250));
