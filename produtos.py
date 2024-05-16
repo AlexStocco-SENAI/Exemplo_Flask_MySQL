@@ -61,7 +61,7 @@ def retorna_produtos(filtro:str=None) -> list:
         ON  p.id_categoria = c.id_categoria
         """
     if filtro != None :
-        sql = sql + " WHERE c.id_categoria = %s"
+        sql = sql + " WHERE c.nome = %s"
         valores = (filtro,)
         cursor.execute(sql,valores)
     else:
