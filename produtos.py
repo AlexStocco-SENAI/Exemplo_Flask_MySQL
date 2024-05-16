@@ -43,7 +43,7 @@ def retorna_produto(id_produto: int) -> dict:
 
 #------------------------------------------------------------
 
-def retorna_produtos(filtro:str="") -> list:
+def retorna_produtos(filtro:str=None) -> list:
     mydb = Conexao.conectar()
     cursor = mydb.cursor()
     
@@ -60,8 +60,8 @@ def retorna_produtos(filtro:str="") -> list:
         INNER JOIN tb_categoria c
         ON  p.id_categoria = c.id_categoria
         """
-    if filtro != "" :
-        sql = sql + " WHERE c.nome = %s"
+    if filtro != None :
+        sql = sql + " WHERE c.id_categoria = %s"
         valores = (filtro,)
         cursor.execute(sql,valores)
     else:

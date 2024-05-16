@@ -162,3 +162,6 @@ main{
 .itemCategoria:active {
   box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }
+.itemCategoria img{
+  width: 25px;
+}
