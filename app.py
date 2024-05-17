@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from conexao import Conexao
 from produtos import *
 
@@ -29,6 +29,18 @@ def pag_produtos_via_url():
 @app.route("/produtos_via_ajax", methods=["GET"])
 def pag_produtos_via_ajax():
     return render_template("produtos_via_ajax.html" )
+
+
+@app.route("/api/_get_produtos", methods=['GET'])
+def api_get_produtos():
+    lista_produtos = retorna_produtos()
+    return jsonify(lista_produtos)
+
+@app.route("/api/_get_produtos/<filtro>", methods=['GET'])
+def api_get_produtos_filtro(filtro):
+    lista_produtos = retorna_produtos(filtro)
+    return jsonify(lista_produtos)
+    
 
 
 #-----------------------------------------------------------------
