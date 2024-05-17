@@ -15,9 +15,13 @@ def pag_inicial():
 #PRODUTOS VIA URL
 @app.route("/produtos_via_url", methods=["GET"])
 def pag_produtos_via_url():
+    
     filtro = request.args.get('filtro')
+    
     lista_produtos = retorna_produtos(filtro)
+    
     lista_categorias = retorna_categorias()
+    
     return render_template("produtos_via_url.html", 
                            lista_produtos = lista_produtos,
                            lista_categorias = lista_categorias)
@@ -29,6 +33,18 @@ def pag_produtos_via_url():
 @app.route("/produtos_via_ajax", methods=["GET"])
 def pag_produtos_via_ajax():
     return render_template("produtos_via_ajax.html" )
+
+@app.route("/api/get_categorias")
+
+@app.route("/api/get_produtos", methods=['GET'])
+def api_get_produtos():
+    lista_produtos = retorna_produtos()
+    return jsonify(lista_produtos)
+
+@app.route("/api/get_produtos/<filtro>", methods=['GET'])
+def api_get_produtos_filtro(filtro):
+    lista_produtos = retorna_produtos(filtro)
+    return jsonify(lista_produtos)
 
 
 @app.route("/api/_get_produtos", methods=['GET'])
