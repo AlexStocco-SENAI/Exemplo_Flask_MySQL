@@ -12,7 +12,7 @@ def retorna_produto(id_produto: int) -> dict:
             p.id_produto,
             p.nome,
             p.descricao,
-            p.preco,
+            format(p.preco,2,'pt_BR'),
             p.foto,
             c.nome as "categoria",
             c.cor as "cor_categoria"

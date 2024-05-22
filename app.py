@@ -61,6 +61,10 @@ def api_get_produtos_filtro(filtro):
     lista_produtos = retorna_produtos(filtro)
     return jsonify(lista_produtos), 200
     
+@app.route("/api/sobre_produto_ajax/<produto>")
+def pag_get_sobre_produto(produto):
+    sobre_produto = retorna_produto(produto)
+    return jsonify(sobre_produto)
 
 
 #-----------------------------------------------------------------
