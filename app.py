@@ -39,23 +39,12 @@ def pag_produtos_via_ajax():
 @app.route("/api/get_produtos", methods=['GET'])
 def api_get_produtos():
     lista_produtos = retorna_produtos()
-    return jsonify(lista_produtos)
+    return jsonify(lista_produtos), 200
 
 @app.route("/api/get_produtos/<filtro>", methods=['GET'])
 def api_get_produtos_filtro(filtro):
     lista_produtos = retorna_produtos(filtro)
-    return jsonify(lista_produtos)
-
-
-@app.route("/api/_get_produtos", methods=['GET'])
-def api_get_produtos():
-    lista_produtos = retorna_produtos()
-    return jsonify(lista_produtos)
-
-@app.route("/api/_get_produtos/<filtro>", methods=['GET'])
-def api_get_produtos_filtro(filtro):
-    lista_produtos = retorna_produtos(filtro)
-    return jsonify(lista_produtos)
+    return jsonify(lista_produtos), 200
     
 
 

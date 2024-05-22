@@ -2,40 +2,64 @@
 
 {% block estilo_css %}
 <link rel="stylesheet" href="static/style/style_produtos.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block conteudo %}
 <main>
 
     <div class="categorias">
-        {% for categoria in lista_categorias%}
         <form>
             <button type="submit" 
                 class="itemCategoria" 
                 name="filtro" 
-                value = {{categoria['nome']}}
+                value = "valorcategoria"
                 style = 
             >
-                <img src="{{categoria['imagem']}}"> {{categoria['nome']}}
+                <img src="imagem/categoria"> nome categoria
             </button>
         </form>
-        {%endfor%}
     </div>
 
     <div class="produtos" >  
-        {% for produto in lista_produtos%}
-            <div class="card" style="background-color: {{produto['cor_categoria']}};">
+            <div class="card" style="background-color: red;">
                 ::before:
                 <div class="imgBox">
-                <img src="{{produto['foto']}}"  class="mouse">
+                <img src=""  class="mouse">
                 </div>
                 <div class="contentBox">
-                <h3>{{produto['nome']}}</h3>
-                <h2 class="price">R$ {{produto['preco']}}</h2>
+                <h3>nome do produto</h3>
+                <h2 class="price">R$ </h2>
                 <a href="#" class="buy">COMPRAR</a>
                 </div>
             </div>
-        {%endfor%}
     </div>
 </main>
+
+<script type="text/javascript">
+    //Função que solicita os produtos da API
+    function getProdutos(){
+        $.ajax({
+            url: '/api/get_produtos',
+            type: 'GET',
+            success: function(respostaAPI){
+                mostraProdutos(respostaAPI)
+            },
+            error: function(erroAPI){
+                alert("Erro ao recuperar produtos.")
+            }
+        })
+    }
+
+    function mostraProdutos(produtos){
+        console.log("teste")
+        console.log(produtos)
+        for (let x of produtos) {
+            produto = x
+            console.log(x.nome);
+          }
+    }
+
+    $(document).ready(getProdutos);
+</script>
   {% endblock %}
