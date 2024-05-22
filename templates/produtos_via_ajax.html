@@ -8,28 +8,27 @@
 {% block conteudo %}
 <main>
 
-    <div class="categorias">
-        <form>
+    <div class="categorias" id="div_categorias">
+            <!--EXEMPLO DO BOTÃO DE CATEGORIA, A FUNÇÃO mostraCategorias APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
             <button type="submit" 
                 class="itemCategoria" 
                 name="filtro" 
                 value = "valorcategoria"
-                style = 
+                onClick = "getProdutos('nome_categoria')"
             >
                 <img src="imagem/categoria"> nome categoria
             </button>
-        </form>
     </div>
 
-    <div class="produtos" >  
+    <div class="produtos" id="div_produtos" >  
+            <!--EXEMPLO DO CARTÃO DE PRODUTOS, A FUNÇÃO mostraProdutos APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
             <div class="card" style="background-color: red;">
-                ::before:
                 <div class="imgBox">
                 <img src=""  class="mouse">
                 </div>
                 <div class="contentBox">
                 <h3>nome do produto</h3>
-                <h2 class="price">R$ </h2>
+                <h2 class="price">R$ 9999,99</h2>
                 <a href="#" class="buy">COMPRAR</a>
                 </div>
             </div>
@@ -37,10 +36,62 @@
 </main>
 
 <script type="text/javascript">
-    //Função que solicita os produtos da API
-    function getProdutos(){
+    //Função que solicita as categorias da API e envia para a função mostraCategorias
+    function getCategorias(filtro=""){
         $.ajax({
-            url: '/api/get_produtos',
+            url: '/api/get_categorias',
+            type: 'GET',
+            success: function(respostaAPI){
+                mostraCategorias(respostaAPI)
+            },
+            error: function(erroAPI){
+                alert("Erro ao recuperar categorias.")
+            }
+        })
+    }
+
+    //Função responsavel por montar os botões das categorias e mostrar na div id="div_categorias"
+    function mostraCategorias(respostaAPI){
+        //Limpando a div de id="div_categorias"
+        document.getElementById('div_categorias').innerHTML = ""
+
+        console.log()
+        for (let categoria of respostaAPI) {
+            //montando o botão para cada categoria
+            let botao_categoria = `
+                                        <button  
+                                            class="itemCategoria" 
+                                            name="filtro" 
+                                            onClick = "getProdutos('${categoria.nome}')"
+                                        >
+                                            <img src="${categoria.imagem}"> ${categoria.nome}
+                                        </button>
+                                    `
+
+            //inserindo o botão na div de id="div_categorias"
+            document.getElementById('div_categorias').innerHTML += botao_categoria
+
+          }
+    }
+
+    $(document).ready(getCategorias());
+</script>
+
+<script type="text/javascript">
+    //Função que solicita os produtos da API e envia para a função mostraProdutos
+    function getProdutos(filtro=""){
+
+        //Se o getProdutos foi chamado sem informar um filtro ele vai buscar na API '/api/get_produtos', senão, ele irá buscar na API "/api/get_produtos/<filtro>"
+        let endereco_api
+        if (filtro == ""){
+           endereco_api = '/api/get_produtos'
+        }
+        else{
+            endereco_api = '/api/get_produtos/'+filtro
+        }
+        
+        $.ajax({
+            url: endereco_api,
             type: 'GET',
             success: function(respostaAPI){
                 mostraProdutos(respostaAPI)
@@ -51,15 +102,34 @@
         })
     }
 
-    function mostraProdutos(produtos){
-        console.log("teste")
-        console.log(produtos)
-        for (let x of produtos) {
-            produto = x
-            console.log(x.nome);
+    //Função responsavel por montar os cards dos produtos e mostrar na div id="div_produtos"
+    function mostraProdutos(respostaAPI){
+        //Limpando a div de id="div_produtos"
+        document.getElementById('div_produtos').innerHTML = ""
+
+        for (let produto of respostaAPI) {
+            //montando o cartão de cada produto
+            let cartao_produto = `
+                                    <div class="card" style="background-color: ${produto.cor_categoria};">
+                                        <div class="imgBox">
+                                        <img src="${produto.foto}"  class="mouse">
+                                        </div>
+                                        <div class="contentBox">
+                                        <h3>${produto.nome}</h3>
+                                        <h2 class="price">R$ ${produto.preco}</h2>
+                                        <a href="#" class="buy">COMPRAR</a>
+                                        </div>
+                                    </div>
+                                `
+
+            //inserindo o cartão na div de id="div_produtos"
+            document.getElementById('div_produtos').innerHTML += cartao_produto
+
           }
     }
 
-    $(document).ready(getProdutos);
+    $(document).ready(getProdutos());
 </script>
+
+
   {% endblock %}

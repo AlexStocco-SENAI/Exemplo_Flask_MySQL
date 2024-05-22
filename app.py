@@ -35,6 +35,9 @@ def pag_produtos_via_ajax():
     return render_template("produtos_via_ajax.html" )
 
 @app.route("/api/get_categorias")
+def api_get_categorias():
+    lista_categorias = retorna_categorias()
+    return jsonify(lista_categorias), 200
 
 @app.route("/api/get_produtos", methods=['GET'])
 def api_get_produtos():
