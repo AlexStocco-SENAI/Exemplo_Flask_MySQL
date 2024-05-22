@@ -1,0 +1,42 @@
+{% extends 'layout_padrao.html' %}
+
+{% block estilo_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/style_sobre_produto.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{% endblock %}
+
+
+{% block conteudo %}
+<main>
+    <section class="about_section layout_padding">
+        <div class="container  " style="background-color: {{produto['cor_categoria']}};">
+        <div class="row">
+            <div class="col-md-6 col-lg-5 ">
+            <div class="img-box">
+                <img src="{{produto['foto']}}" alt="">
+            </div>
+            </div>
+            <div class="col-md-6 col-lg-7">
+            <div class="detail-box">
+                <div class="heading_container">
+                <h2>
+                    {{produto['nome']}}
+                </h2>
+                <h3>
+                    R$ {{produto['preco']}}
+                </h3>
+                </div>
+                <p>
+                    {{produto['descricao']}}
+                </p>
+                <a href="">
+                Adicionar no carrinho
+                </a>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

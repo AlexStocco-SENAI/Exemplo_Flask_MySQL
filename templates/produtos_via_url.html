@@ -1,7 +1,7 @@
 {% extends 'layout_padrao.html' %}
 
 {% block estilo_css %}
-<link rel="stylesheet" href="static/style/style_produtos.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/style_produtos.css') }}">
 {% endblock %}
 
 {% block conteudo %}
@@ -14,7 +14,6 @@
                 class="itemCategoria" 
                 name="filtro" 
                 value = {{categoria['nome']}}
-                style = 
             >
                 <img src="{{categoria['imagem']}}"> {{categoria['nome']}}
             </button>
@@ -24,17 +23,18 @@
 
     <div class="produtos" >  
         {% for produto in lista_produtos%}
+        <a href="/sobre_produto_url?produto={{produto['id_produto']}}">
             <div class="card" style="background-color: {{produto['cor_categoria']}};">
-                ::before:
                 <div class="imgBox">
-                <img src="{{produto['foto']}}"  class="mouse">
+                    <img src="{{produto['foto']}}"  class="mouse">
                 </div>
                 <div class="contentBox">
-                <h3>{{produto['nome']}}</h3>
-                <h2 class="price">R$ {{produto['preco']}}</h2>
-                <a href="#" class="buy">COMPRAR</a>
+                    <h3>{{produto['nome']}}</h3>
+                    <h2 class="price">R$ {{produto['preco']}}</h2>
+                    <a href="/sobre_produto_url/{{produto['id_produto']}}" class="buy">COMPRAR</a>
                 </div>
             </div>
+        </a>
         {%endfor%}
     </div>
 </main>

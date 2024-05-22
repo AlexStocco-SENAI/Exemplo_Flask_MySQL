@@ -25,7 +25,19 @@ def pag_produtos_via_url():
     return render_template("produtos_via_url.html", 
                            lista_produtos = lista_produtos,
                            lista_categorias = lista_categorias)
-    
+
+
+@app.route("/sobre_produto_url/<id_produto>")
+def pag_sobre_produto(id_produto):
+    id_produto = id_produto
+    produto = retorna_produto(id_produto)
+    return render_template("sobre_produto_url.html", produto=produto)
+
+@app.route("/sobre_produto_url")
+def pag_sobre_produto2():
+    id_produto  = int(request.args.get('produto'))
+    produto = retorna_produto(id_produto)
+    return render_template("sobre_produto_url.html", produto=produto)
     
 #-----------------------------------------------------------------
 

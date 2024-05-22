@@ -19,9 +19,9 @@ def retorna_produto(id_produto: int) -> dict:
             FROM tb_produto p
         INNER JOIN tb_categoria c
         ON  p.id_categoria = c.id_categoria
-        WHERE id_produto = %d;
+        WHERE id_produto = %s;
         """
-    valores = (id_produto,)
+    valores = [id_produto]
     
     cursor.execute(sql,valores)
     
