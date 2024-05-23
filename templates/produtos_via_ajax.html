@@ -9,6 +9,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="static/style/style_produtos.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='style/style_sobre_produto.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/style_modal.css') }}">
 
 {% endblock %}
 
@@ -16,29 +17,28 @@
 <main>
 
     <div class="categorias" id="div_categorias">
-            <!--EXEMPLO DO BOTÃO DE CATEGORIA, A FUNÇÃO mostraCategorias APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
-            <button type="submit" 
-                class="itemCategoria" 
-                name="filtro" 
-                value = "valorcategoria"
-                onClick = "getProdutos('nome_categoria')"
-            >
-                <img src="imagem/categoria"> nome categoria
-            </button>
+        <!--EXEMPLO DO BOTÃO DE CATEGORIA, A FUNÇÃO mostraCategorias APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
+        <button type="submit" 
+            class="itemCategoria" 
+            name="filtro" 
+            value="valorcategoria"
+            onClick="getProdutos('nome_categoria')">
+            <img src="imagem/categoria"> nome categoria
+        </button>
     </div>
 
-    <div class="produtos" id="div_produtos" >  
-            <!--EXEMPLO DO CARTÃO DE PRODUTOS, A FUNÇÃO mostraProdutos APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
-            <div class="card" style="background-color: red;" onclick="mostraSobreProduto()">
-                <div class="imgBox">
-                <img src=""  class="mouse">
-                </div>
-                <div class="contentBox">
+    <div class="produtos" id="div_produtos">  
+        <!--EXEMPLO DO CARTÃO DE PRODUTOS, A FUNÇÃO mostraProdutos APAGA ELE PARA INCLUIR OS CARTÕES PREENCHIDOS-->
+        <div class="card" style="background-color: red;" onclick="mostraSobreProduto()">
+            <div class="imgBox">
+                <img src="" class="mouse">
+            </div>
+            <div class="contentBox">
                 <h3>nome do produto</h3>
                 <h2 class="price">R$ 9999,99</h2>
                 <a href="#" class="buy">COMPRAR</a>
-                </div>
             </div>
+        </div>
     </div>
 </main>
 
@@ -62,23 +62,20 @@
         //Limpando a div de id="div_categorias"
         document.getElementById('div_categorias').innerHTML = ""
 
-        console.log()
         for (let categoria of respostaAPI) {
             //montando o botão para cada categoria
             let botao_categoria = `
-                                        <button  
-                                            class="itemCategoria" 
-                                            name="filtro" 
-                                            onClick = "getProdutos('${categoria.nome}')"
-                                        >
-                                            <img src="${categoria.imagem}"> ${categoria.nome}
-                                        </button>
-                                    `
+                <button  
+                    class="itemCategoria" 
+                    name="filtro" 
+                    onClick="getProdutos('${categoria.nome}')">
+                    <img src="${categoria.imagem}"> ${categoria.nome}
+                </button>
+            `
 
             //inserindo o botão na div de id="div_categorias"
             document.getElementById('div_categorias').innerHTML += botao_categoria
-
-          }
+        }
     }
 
     $(document).ready(getCategorias());
@@ -87,15 +84,7 @@
 <script type="text/javascript">
     //Função que solicita os produtos da API e envia para a função mostraProdutos
     function getProdutos(filtro=""){
-
-        //Se o getProdutos foi chamado sem informar um filtro ele vai buscar na API '/api/get_produtos', senão, ele irá buscar na API "/api/get_produtos/<filtro>"
-        let endereco_api
-        if (filtro == ""){
-           endereco_api = '/api/get_produtos'
-        }
-        else{
-            endereco_api = '/api/get_produtos/'+filtro
-        }
+        let endereco_api = filtro == "" ? '/api/get_produtos' : '/api/get_produtos/' + filtro
         
         $.ajax({
             url: endereco_api,
@@ -117,109 +106,64 @@
         for (let produto of respostaAPI) {
             //montando o cartão de cada produto
             let cartao_produto = `
-                                    <div class="card" style="background-color: ${produto.cor_categoria};" onclick="mostraSobreProduto(${produto.id_produto})">
-                                        <div class="imgBox">
-                                        <img src="${produto.foto}"  class="mouse">
-                                        </div>
-                                        <div class="contentBox">
-                                        <h3>${produto.nome}</h3>
-                                        <h2 class="price">R$ ${produto.preco}</h2>
-                                        <a href="#" class="buy">COMPRAR</a>
-                                        </div>
-                                    </div>
-                                `
+                <div class="card" style="background-color: ${produto.cor_categoria};" onclick="mostraSobreProduto(${produto.id_produto})">
+                    <div class="imgBox">
+                        <img src="${produto.foto}" class="mouse">
+                    </div>
+                    <div class="contentBox">
+                        <h3>${produto.nome}</h3>
+                        <h2 class="price">R$ ${produto.preco}</h2>
+                        <a href="#" class="buy">COMPRAR</a>
+                    </div>
+                </div>
+            `
 
             //inserindo o cartão na div de id="div_produtos"
             document.getElementById('div_produtos').innerHTML += cartao_produto
-
-          }
+        }
     }
 
     $(document).ready(getProdutos());
 </script>
 
+<!---------------------------------- MODAL-------------------------------------------------->
 
 
-<!---------------------------------- DIALOG MODAL-------------------------------------------------->
-
-<dialog class="modal fade" id="ExemploModalCentralizado2" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-    <section class="about_section layout_padding">
-        <div class="container  " style="background-color: red;">
-        <div class="row">
-            <div class="col-md-6 col-lg-5 ">
-            <div class="img-box">
-                <img src="foto" alt="">
-            </div>
-            </div>
-            <div class="col-md-6 col-lg-7">
-            <div class="detail-box">
-                <div class="heading_container">
-                <h2> NOME </h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3>
-                    R$ 999,99
-                </h3>
-                </div>
-                <p>
-                    DESCRIÇÃO
-                </p>
-                <a href="">
-                Adicionar no carrinho
-                </a>
-            </div>
-            </div>
-        </div>
-        </div>
-    </section>
-</dialog>
-
-
-<!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="modalSobreProduto" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg-per" role="document">
         <div class="modal-content">
+            <!-- Botão de Fechar -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
             <section class="about_section layout_padding" id="sessaoSobreProduto">
                 <div class="container" id="conteiner_produto" style="background-color: red;">
-                <div class="row">
-                    <div class="col-md-6 col-lg-5 ">
-                    <div class="img-box">
-                        <img src="static/imgs/produtos/raposa.png" id="foto_produto">
-                    </div>
-                    </div>
-                    <div class="col-md-6 col-lg-7">
-                    <div class="detail-box">
-                        <div class="heading_container">
-                        <h2 id="nome_produto">
-                            NOME
-                        </h2>
-                        <h3 id="preco_produto">
-                            R$ 999,99
-                        </h3>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="img-box">
+                                <img src="static/imgs/produtos/raposa.png" id="foto_produto">
+                            </div>
                         </div>
-                        <p id="descricao_produto">
-                            DESCRIÇÃO
-                        </p>
-                        <a href="">
-                        Adicionar no carrinho
-                        </a>
+                        <div class="col-md-6 col-lg-7">
+                            <div class="detail-box">
+                                <div class="heading_container">
+                                    <h2 id="nome_produto">NOME</h2>
+                                    <h3 id="preco_produto">R$ 999,99</h3>
+                                </div>
+                                <p id="descricao_produto">DESCRIÇÃO</p>
+                                <a href="">Adicionar no carrinho</a>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 </div>
             </section>
-      </div>
+        </div>
     </div>
-  </div>
-
-  <button type="button" data-toggle="modal" data-target="#ExemploModalCentralizado">
-    Abrir modal de demonstração
-  </button>
+</div>
 
 <script>
     function mostraSobreProduto(id_produto){
-        //API que pega as informações do produto especifico
         $.ajax({
             url: "/api/sobre_produto_ajax/" + id_produto,
             type: 'GET',
@@ -233,10 +177,10 @@
     }
 
     function mostraModal(respostaAPI){
-        produto = respostaAPI
-        document.getElementById("nome_produto").innerHTML = produto.nome
-        document.getElementById("preco_produto").innerHTML ="R$ " + produto.preco
-        document.getElementById("descricao_produto").innerHTML = produto.descricao
+        const produto = respostaAPI;
+        document.getElementById("nome_produto").innerHTML = produto.nome;
+        document.getElementById("preco_produto").innerHTML = "R$ " + produto.preco;
+        document.getElementById("descricao_produto").innerHTML = produto.descricao;
         document.getElementById("foto_produto").src = produto.foto;
         document.getElementById("conteiner_produto").style.backgroundColor = produto.cor_categoria;
 
@@ -244,14 +188,5 @@
     }
 </script>
 
-<style>
-    .modal-lg {
-        max-width: 70%; /* Aumenta a largura para 80% do viewport */
-    }
-    
-    .modal-dialog {
-        max-width: 100%; /* Garante que o modal não ultrapasse 100% da largura do viewport */
-    }
-</style>
 
-  {% endblock %}
+{% endblock %}
