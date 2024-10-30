@@ -69,4 +69,4 @@ def pag_get_sobre_produto(produto):
 
 #-----------------------------------------------------------------
 #app.run(debug=True)
-app.run()
+app.run(host="0.0.0.0", port=8080)
