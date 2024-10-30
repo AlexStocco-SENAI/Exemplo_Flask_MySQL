@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/89ce43c5-024a-4389-903c-01d5ae8b7089/resourceGroups/ProjetoGodofredo/providers/Microsoft.Web/sites/godoapp",
+    "appService.deploySubpath": "."
+}
