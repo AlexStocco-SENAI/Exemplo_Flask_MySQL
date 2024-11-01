@@ -67,6 +67,5 @@ def pag_get_sobre_produto(produto):
     return jsonify(sobre_produto)
 
 
-#-----------------------------------------------------------------
-#app.run(debug=True)
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=8080)
