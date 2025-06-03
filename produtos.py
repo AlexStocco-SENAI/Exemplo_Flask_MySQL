@@ -5,14 +5,14 @@ from conexao import Conexao
 def retorna_produto(id_produto: int) -> dict:
     mydb = Conexao.conectar()
     
-    cursor = mydb.cursor()
+    cursor = mydb.cursor(dictionary=True)
     
     sql = """
         SELECT
             p.id_produto,
             p.nome,
             p.descricao,
-            format(p.preco,2,'pt_BR'),
+            format(p.preco,2,'pt_BR') as preco,
             p.foto,
             c.nome as "categoria",
             c.cor as "cor_categoria"
@@ -29,30 +29,20 @@ def retorna_produto(id_produto: int) -> dict:
     
     mydb.close()
     
-    dicionario_produto ={
-        "id_produto":resultado[0],
-        "nome":resultado[1],
-        "descricao":resultado[2],
-        "preco":resultado[3],
-        "foto":resultado[4],
-        "categoria":resultado[5],
-        "cor_categoria":resultado[6]
-    }
-    
-    return (dicionario_produto)
+    return (resultado)
 
 #------------------------------------------------------------
 
 def retorna_produtos(filtro:str=None) -> list:
     mydb = Conexao.conectar()
-    cursor = mydb.cursor()
+    cursor = mydb.cursor(dictionary=True)
     
     sql = """
         SELECT
             p.id_produto,
             p.nome,
             p.descricao,
-            format(p.preco,2,'pt_BR'),
+            format(p.preco,2,'pt_BR') as "preco",
             p.foto,
             c.nome as "categoria",
             c.cor as "cor_categoria"
@@ -71,26 +61,13 @@ def retorna_produtos(filtro:str=None) -> list:
     
     mydb.close()
     
-    lista_produtos = []
-    
-    for produto in resultado:
-        lista_produtos.append({
-            "id_produto":produto[0],
-            "nome":produto[1],
-            "descricao":produto[2],
-            "preco":produto[3],
-            "foto":produto[4],
-            "categoria":produto[5],
-            "cor_categoria":produto[6]
-        })
-    
-    return (lista_produtos)
+    return (resultado)
 
 #--------------------------------------------------------------------
 
 def retorna_categorias() -> list:
     mydb = Conexao.conectar()
-    cursor = mydb.cursor()
+    cursor = mydb.cursor(dictionary=True)
     
     sql = """
         SELECT
@@ -104,16 +81,8 @@ def retorna_categorias() -> list:
     cursor.execute(sql)
     
     resultado = cursor.fetchall()
+
+    mydb.close()
     
-    lista_categorias = []
-    
-    for categoria in resultado:
-        lista_categorias.append({
-            "id_categoria":categoria[0],
-            "nome":categoria[1],
-            "imagem":categoria[2],
-            "cor":categoria[3]
-        })
-    
-    return (lista_categorias)
+    return (resultado)
     
